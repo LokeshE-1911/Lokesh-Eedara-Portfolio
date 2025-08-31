@@ -1,9 +1,11 @@
+export const dynamic = "force-dynamic";
+
 import Image from "next/image";
 import Section from "@/components/Section";
 import ChatBox from "@/components/ChatBox";
 import { fetchResume } from "@/lib/api";
 
-export const dynamic = "force-dynamic";
+
 
 
 export default async function Page() {

@@ -18,6 +18,11 @@ RUN apt-get update && apt-get install -y curl && \
 COPY backend /app/backend
 RUN pip install --no-cache-dir -r /app/backend/requirements.txt
 
+# in runtime stage
+ENV NEXT_PUBLIC_BACKEND_URL=http://localhost:10001
+ENV GROQ_MODEL=llama-3.1-8b-instant
+
+
 # bring compiled frontend + runtime deps
 COPY --from=fe-build /app/frontend /app/frontend
 
