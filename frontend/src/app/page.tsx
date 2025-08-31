@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function Page() {
+  
   const resume = await fetchResume(); // basics, skills, work, projects, awards, education
   const basics = resume?.basics || {};
   const skills = resume?.skills || [];
