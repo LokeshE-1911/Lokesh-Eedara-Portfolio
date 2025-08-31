@@ -1,0 +1,44 @@
+{
+  "basics": {
+    "name": "Lokesh Eedara",
+    "summary": "MIS Graduate (4.0 GPA). AI & Full-Stack developer focusing on FastAPI, Java/Spring, React, and LLM + RAG. Built voice-enabled roleplay bots and production APIs (Render, Docker)."
+  },
+  "skills": [
+    {"name": "Languages", "keywords": ["Python", "Java/J2EE", "JavaScript"]},
+    {"name": "Frameworks", "keywords": ["FastAPI", "Spring Boot", "React.js"]},
+    {"name": "Cloud/Tools", "keywords": ["Docker", "AWS", "Azure", "Render", "GitHub"]},
+    {"name": "AI/ML", "keywords": ["RAG", "LLM APIs", "STT/TTS"]}
+  ],
+  "projects": [
+    {
+      "name": "Big E Sales Coach App",
+      "description": "Real-time AI sales roleplay assistant (Gemini + FastAPI) with voice.",
+      "highlights": ["STT/TTS", "Render deploy", "CI/CD"]
+    },
+    {
+      "name": "AI Student Advising Chatbot",
+      "description": "Ollama LLM + FastAPI for personalized advising.",
+      "highlights": ["Dockerized", "Lightweight microservice"]
+    }
+  ],
+  "work": [
+    {
+      "name": "Eastern Kentucky University",
+      "position": "Research Assistant",
+      "summary": "Built AI backends with Gemini & Ollama; deployed to Render; contributed to $5,000 Scholars Tank win.",
+      "highlights": ["FastAPI", "Docker", "Voice pipelines"]
+    },
+    {
+      "name": "Slash Mark",
+      "position": "Java Backend Intern",
+      "summary": "Spring Boot + MySQL HMS, RBAC, Docker/AWS deploy.",
+      "highlights": ["Spring Boot", "MySQL", "AWS"]
+    }
+  ],
+  "education": [
+    {"institution": "Eastern Kentucky University", "studyType": "MS", "area": "Computer Science"}
+  ],
+  "awards": [
+    {"title": "Winner — EKU Scholars Tank 2025", "summary": "$5,000 prize for the Big E Sales Coach App"}
+  ]
+}
