@@ -3,6 +3,9 @@ import Section from "@/components/Section";
 import ChatBox from "@/components/ChatBox";
 import { fetchResume } from "@/lib/api";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function Page() {
   const resume = await fetchResume(); // basics, skills, work, projects, awards, education
   const basics = resume?.basics || {};

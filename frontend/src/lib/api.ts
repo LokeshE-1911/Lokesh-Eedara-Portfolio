@@ -1,10 +1,16 @@
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
 
+// frontend/src/lib/api.ts
 export async function fetchResume() {
-  const r = await fetch(`${BASE}/api/resume`, { next: { revalidate: 60 } });
-  if (!r.ok) throw new Error(await r.text());
-  return r.json();
+  const base = process.env.NEXT_PUBLIC_BACKEND_URL!;
+  const res = await fetch(`${base}/resume`, {
+    cache: "no-store",
+    next: { revalidate: 0 },
+  });
+  if (!res.ok) throw new Error(`Resume fetch failed: ${res.status}`);
+  return res.json();
 }
+
 
 export async function chatOnce(message: string) {
   const r = await fetch(`${BASE}/chat`, {
