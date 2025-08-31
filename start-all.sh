@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 set -e
-# Start FastAPI on 10001
-(cd /app/backend && PORT=10001 bash start.sh) &
-# Start Next.js on 10000
-(cd /app/frontend && PORT=10000 node server.js 2>/dev/null || NEXT_PUBLIC_BACKEND_URL="http://localhost:10001" npm start) &
-wait -n
+
+# start FastAPI backend on port 10001
+python -m uvicorn backend.main:app --host 0.0.0.0 --port 10001 &
+
+# wait until backend responds
+until curl -fsS http://localhost:10001/docs >/dev/null; do
+  echo "waiting for backend..."
+  sleep 1
+done
+
+# now start Next.js frontend on 10000
+npm --prefix frontend run start -- --port 10000

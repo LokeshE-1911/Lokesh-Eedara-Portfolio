@@ -9,8 +9,27 @@ import { fetchResume } from "@/lib/api";
 
 
 export default async function Page() {
-  
-  const resume = await fetchResume(); // basics, skills, work, projects, awards, education
+    let resume: any = {
+    basics: { name: "Lokesh Eedara", summary: "" },
+    skills: [],
+    work: [],
+    projects: [],
+    awards: []
+  };
+
+  try {
+    resume = await fetchResume();
+  } catch {
+    // backend not ready yet — render safe defaults
+    resume = {
+      basics: { name: "Lokesh Eedara", summary: "" },
+      skills: [],
+      work: [],
+      projects: [],
+      awards: []
+    };
+  }
+   
   const basics = resume?.basics || {};
   const skills = resume?.skills || [];
   const work = resume?.work || [];
