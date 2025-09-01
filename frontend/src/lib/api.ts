@@ -6,22 +6,17 @@ async function sleep(ms: number) {
 }
 
 export async function fetchResume() {
-  const base = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:10001";
-  const url = `${base}/resume`;
-
-  const max = 6;               // ~6 seconds total
-  for (let i = 0; i < max; i++) {
-    try {
-      const res = await fetch(url, { cache: "no-store" }); // only ONE cache option
-      if (res.ok) return res.json();
-      // if backend is up but no route, surface clear error
-      throw new Error(`Resume fetch failed: ${res.status}`);
-    } catch (err) {
-      if (i === max - 1) throw err;   // give up after retries
-      await sleep(1000);
-    }
+  // Skip fetching when building the static bundle
+  if (process.env.SKIP_SSR_FETCH === '1') {
+    return { basics:{name:'Lokesh Eedara', summary:''}, skills:[], work:[], projects:[], awards:[] };
   }
+
+  const base = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:10001';
+  const res = await fetch(`${base}/resume`, { cache: 'no-store' }); // do not also set revalidate
+  if (!res.ok) throw new Error(`Resume fetch failed: ${res.status}`);
+  return res.json();
 }
+
 
 
 
