@@ -3,12 +3,11 @@ name: Keep Render Awake
 on:
   schedule:
     - cron: "*/10 * * * *"   # every 10 minutes (UTC)
-  workflow_dispatch:          # allow manual runs from the Actions tab
+  workflow_dispatch:          # allow manual runs
 
 permissions:
   contents: read
 
-# avoid overlapping runs if a ping is slow
 concurrency:
   group: keep-render-awake
   cancel-in-progress: false
@@ -22,10 +21,10 @@ jobs:
 
       - name: Warm up app (prewarm) then check health
         env:
-          URL: ${{ secrets.https://portfolio-vf4g.onrender.com }}   # set this in repo Settings → Secrets → Actions
+          URL: ${{ secrets.RENDER_URL }}   # <-- use the secret NAME here
         run: |
           set -euxo pipefail
-          # try to prewarm (ok if it 404s or errors)
-          curl -A "keepalive-bot" -fsS "${URL%/}/prewarm" -m 15 || true
+          # try to prewarm (ok if it 404s)
+          curl -L -A "keepalive-bot" -fsS "${URL%/}/prewarm" -m 15 || true
           # health check
-          curl -A "keepalive-bot" -fsS "${URL%/}/healthz" -m 10  || true
+          curl -L -A "keepalive-bot" -fsS "${URL%/}/healthz" -m 10  || true
