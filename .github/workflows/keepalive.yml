@@ -1,30 +1,13 @@
-name: Keep Render Awake
+name: Keep Render Alive
 
 on:
   schedule:
-    - cron: "*/10 * * * *"   # every 10 minutes (UTC)
-  workflow_dispatch:          # allow manual runs
-
-permissions:
-  contents: read
-
-concurrency:
-  group: keep-render-awake
-  cancel-in-progress: false
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Random jitter (avoid exact-minute herd)
-        run: sleep $((RANDOM % 40))
-
-      - name: Warm up app (prewarm) then check health
-        env:
-          URL: ${{ secrets.RENDER_URL }}   # <-- use the secret NAME here
-        run: |
-          set -euxo pipefail
-          # try to prewarm (ok if it 404s)
-          curl -L -A "keepalive-bot" -fsS "${URL%/}/prewarm" -m 15 || true
-          # health check
-          curl -L -A "keepalive-bot" -fsS "${URL%/}/healthz" -m 10  || true
+      - name: Curl to ping Render app
+        run: curl --silent https://pponnam-q3g6.onrender.com > /dev/null
